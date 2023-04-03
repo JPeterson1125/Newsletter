@@ -12,11 +12,11 @@ app.use(
   })
 );
 
-app.get("/", function (req, res) {
+app.get("/newsletter", function (req, res) {
   res.sendFile(__dirname + "/signup.html");
 });
 
-app.post("/", function (req, res) {
+app.post("/newsletter", function (req, res) {
   const firstName = req.body.fName;
   const lastName = req.body.lName;
   const email = req.body.email;
@@ -64,8 +64,3 @@ app.post("/failure", function (req, res) {
 app.listen(process.env.PORT || 3000, function () {
   console.log("Running on Port 3000");
 });
-
-// API Key
-// 02928dc85fa64b4742a8e4109aa80dd5-us14
-// List Key
-// 36f0ee7bdd
