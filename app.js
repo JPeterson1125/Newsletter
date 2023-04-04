@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
+const config = require("./config");
 
 const app = express();
 
@@ -12,11 +13,11 @@ app.use(
   })
 );
 
-app.get("/newsletter", function (req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/signup.html");
 });
 
-app.post("/newsletter", function (req, res) {
+app.post("/", function (req, res) {
   const firstName = req.body.fName;
   const lastName = req.body.lName;
   const email = req.body.email;
@@ -39,8 +40,9 @@ app.post("/newsletter", function (req, res) {
 
   const options = {
     method: "POST",
-    auth: "MAILCHIMP_API_KEY",
+    auth: `apikey:${config.apiKey}`,
   };
+
   const request = https.request(url, options, function (response) {
     if (response.statusCode === 200) {
       res.sendFile(__dirname + "/success.html");
