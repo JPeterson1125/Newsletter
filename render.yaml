@@ -1,9 +1,0 @@
-services:
-  - name: web
-    env:
-      NODE_ENV: production
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    healthCheckPath: /
-    automaticDeploys:
-      branch: main

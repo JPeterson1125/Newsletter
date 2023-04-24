@@ -2,10 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
-const config = require("./config");
 require("dotenv").config();
+const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 const apiKey = process.env.API_KEY;
+const listId = process.env.LIST_ID;
+const serverId = process.env.SERVER_ID;
 
 const app = express();
 
@@ -15,6 +17,11 @@ app.use(
     extended: true,
   })
 );
+
+mailchimp.setConfig({
+  apiKey: "apiKey",
+  server: "serverId",
+});
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -39,11 +46,11 @@ app.post("/", function (req, res) {
   };
   var jsonData = JSON.stringify(data);
 
-  const url = "https://us14.api.mailchimp.com/3.0/lists/36f0ee7bdd";
+  const url = `https://${serverId}.api.mailchimp.com/3.0/lists/${listId}`;
 
   const options = {
     method: "POST",
-    auth: `apiKey`,
+    auth: `jp1:${apiKey}`,
   };
 
   const request = https.request(url, options, function (response) {
